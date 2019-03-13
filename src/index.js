@@ -80,8 +80,11 @@ export default class AlphaScrollFlatList extends Component {
                 index = this.props.data.findIndex(item => item[this.props.scrollKey].charAt(0).localeCompare(letter) === 0);
             }
 
-            if (index !== -1)
-                this.list.scrollToOffset({ animated: false, offset: index * this.props.itemHeight });
+            if (index !== -1){
+                const number = this.props.data.filter((f, i) => i<index).filter(f => !f.letter).length
+                const diff = (index - number) *40
+                this.list.scrollToOffset({ animated: false, offset: (index * this.props.itemHeight) + diff});
+            }
         }
     }
 
